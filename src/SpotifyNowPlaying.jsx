@@ -2,7 +2,7 @@
 import spotify from "./assets/SpotifyLogo.svg";
 import { useEffect, useState } from "react";
 import getNowPlayingItem from "./SpotifyAPI";
-import {fetchImageAndExtractColors} from "./SpotifyAPI";
+import {extractColorsImage} from "./SpotifyAPI";
 
 const SpotifyNowPlaying = (props) => {
 	const [loading, setLoading] = useState(true);
@@ -20,7 +20,7 @@ const SpotifyNowPlaying = (props) => {
 			setLoading(false);
 
 			if(result[0].albumImageUrl){
-				fetchImageAndExtractColors(result[0].albumImageUrl);
+				extractColorsImage(result[0].albumImageUrl);
 			}
 
 		});
