@@ -23,7 +23,7 @@ const SpotifyNowPlaying = (props) => {
 	return (
 		<div
 			className="flex
-         min-w-md w-[250px] h-fit text-white items-center justify-center p-2  text-base border rounded-lg border-gray-dark bg-gray-dark">
+         min-w-md w-[250px] h-fit text-white items-center justify-center p-2  text-base rounded-lg border-gray-dark bg-gray-dark">
 			{loading ? (
 				<div
 					className="flex p-2
@@ -70,7 +70,7 @@ const SpotifyNowPlaying = (props) => {
 							</div>
 						</div>
 					) : (
-						"You are offline"
+						"AK is offline!!"
 					)}
 				</div>
 			)}
