@@ -13,8 +13,8 @@ const SpotifyNowPlaying = (props) => {
 		const options = {
 			crossOrigin : 'Anonymous'
 		}
-		const colors = extractColors(result.albumImageUrl, options);
-		console.log(colors);
+		const colors = extractColors(result.albumImageUrl, options).then(console.log).catch(console.error);
+		
 	}
 
 	useEffect(() => {

@@ -12,7 +12,6 @@
   "dependencies": {
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "buffer": "^6.0.3",
-    "colorthief": "^2.4.0",
     "dotenv": "^16.3.1",
     "extract-colors": "^4.0.2",
     "query-string": "^8.1.0",
