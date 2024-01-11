@@ -1,97 +1,93 @@
 /* eslint-disable react/prop-types */
 import spotify from "./assets/SpotifyLogo.svg";
 import { useEffect, useState } from "react";
-import getNowPlayingItem, { getLastPlayedItem } from "./SpotifyAPI";
+import getNowPlayingItem from "./SpotifyAPI";
 import { average, prominent } from "color.js";
 
 const SpotifyNowPlaying = (props) => {
-  const [loading, setLoading] = useState(true);
-  const [result, setResult] = useState({});
+	const [loading, setLoading] = useState(true);
+	const [result, setResult] = useState({});
 
-  useEffect(() => {
-    Promise.all([
-      getNowPlayingItem(
-        props.client_id,
-        props.client_secret,
-        props.refresh_token
-      ),
-    ])
-      .then((results) => {
-        setResult(results[0]);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+	if(result.isPlaying){
+		//console.log(result.albumImageUrl);
+		// const options = {
+		// 	crossOrigin : 'Anonymous'
+		// }
+		// const colors = extractColors(result.albumImageUrl, options).then(console.log).catch(console.error);
+		const avgColor = average(result.albumImageUrl, {format: 'hex'});
+		const domColor = prominent(result.albumImageUrl, {amount: 1});	
 
-  return (
-    <div
-      className={`flex min-w-md w-[250px] h-fit text-white items-center justify-center p-2 text-base rounded-lg border-gray-dark ${
-        result.isPlaying ? "" : "bg-gray-dark"
-      }`}
-    >
-      {loading ? (
-        <div className="flex p-2 w-fit items-center justify-center text-gray text-base">
-          <img
-            className="w-11 p-1 object-contain h-11 mr-10"
-            src={spotify}
-            alt=""
-          />
-          <p className="tracking-wider px-1 text-base text-left">Loading...</p>
-        </div>
-      ) : result.isPlaying ? (
-        <div className="w-fit h-full py-2 flex flex-col text-left justify-around">
-          <div className="w-full h-fit relative">
-            <img
-              className="w-fit h-6 p-1 object-contain absolute -rotate-45 z-10"
-              src={spotify}
-              alt=""
-            />
-            <img
-              className="w-fit h-full rounded-lg"
-              src={result.albumImageUrl}
-              alt="album-image"
-            />
-          </div>
+	}
 
-          <div className="flex flex-col text-left mt-2">
-            <div className="w-fit h-fit">
-              <a
-                className="text-left underline"
-                href={result.songUrl}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {result.title}
-              </a>
-            </div>
-            <div className="w-fit h-fit">
-              <p className="text-left">{result.artist}</p>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div className="flex flex-col text-left justify-around">
-          <p className="text-white">Recently Played Tracks:</p>
-          <ul className="text-white">
-            {getLastPlayedItem().map((track, index) => (
-              <li key={index}>
-                <a
-                  className="underline"
-                  href={track.songUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {track.title}
-                </a>{" "}
-                by {track.artist}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </div>
-  );
+	useEffect(() => {
+		Promise.all([
+			getNowPlayingItem(
+				props.client_id,
+				props.client_secret,
+				props.refresh_token
+			),
+		]).then((results) => {
+			setResult(results[0]);
+			setLoading(false);
+		});
+	});
+
+	return (
+		<div
+			className="flex
+         min-w-md w-[250px] h-fit text-white items-center justify-center p-2  text-2xl rounded-lg border-gray-dark bg-gray-dark">
+			{loading ? (
+				<div
+					className="flex p-2
+         w-fit items-center justify-center text-gray  text-base">
+					<img
+						className="w-11 p-1 object-contain h-11 mr-10"
+						src={spotify}
+						alt=""
+					/>
+					<p className="tracking-wider px-1 text-base text-left ">Loading...</p>
+				</div>
+			) : (
+				<div
+					className="flex p-2
+         w-fit  text-base h-full items-center justify-center">
+					{result.isPlaying ? (
+						<div className=" w-fit  h-full py-2 flex flex-col   text-left justify-around">
+							<div className="w-full h-fit relative">
+								<img
+									className="w-fit h-6 p-1 object-contain absolute -rotate-45 z-10"
+									src={spotify}
+									alt=""
+								/>
+								<img
+									className="w-fit h-full rounded-lg"
+									src={result.albumImageUrl}
+									alt="album-image"
+								/>
+							</div>
+
+							<div className="flex flex-col  text-left mt-2">
+								<div className="w-fit h-fit">
+									<a
+										className="text-left underline "
+										href={result.songUrl}
+										target="_blank"
+										rel="noreferrer">
+										{result.title}
+									</a>
+								</div>
+								<div className="w-fit h-fit">
+									<p className="text-left ">{result.artist}</p>
+								</div>
+							</div>
+						</div>
+					) : (
+						"AK is currently offline!!"
+					)}
+				</div>
+			)}
+		</div>
+	);
 };
 
 export default SpotifyNowPlaying;
