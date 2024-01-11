@@ -60,36 +60,3 @@ export default async function getNowPlayingItem(
         title,
     };
 }
-
-export const fetchImageAndExtractColors = async (client_id, client_secret, refresh_token) => {
-    try {
-      const nowPlaying = await getNowPlaying(client_id, client_secret, refresh_token);
-  
-      if (!nowPlaying || !nowPlaying.item || !nowPlaying.item.album || !nowPlaying.item.album.images) {
-        console.error('Invalid response or missing album information.');
-        return;
-      }
-  
-      const albumImageUrl = nowPlaying.item.album.images[0].url;
-  
-      if (!albumImageUrl) {
-        console.error('No album image URL available.');
-        return;
-      }
-  
-      const imageResponse = await fetch(albumImageUrl);
-      const imageBlob = await imageResponse.blob();
-      const reader = new FileReader();
-  
-      reader.onloadend = async () => {
-        const base64data = reader.result;
-        const colors = await extractColors(base64data);
-        console.log('Extracted Colors:', colors);
-      };
-  
-      reader.readAsDataURL(imageBlob);
-    } catch (error) {
-      console.error('Error fetching or processing image:', error);
-    }
-  };
-  

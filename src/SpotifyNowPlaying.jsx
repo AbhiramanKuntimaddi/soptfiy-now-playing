@@ -2,11 +2,14 @@
 import spotify from "./assets/SpotifyLogo.svg";
 import { useEffect, useState } from "react";
 import getNowPlayingItem from "./SpotifyAPI";
-import {fetchImageAndExtractColors} from "./SpotifyAPI";
 
 const SpotifyNowPlaying = (props) => {
 	const [loading, setLoading] = useState(true);
 	const [result, setResult] = useState({});
+
+	if(result.isPlaying){
+		console.log(result.albumImageUrl);
+	}
 
 	useEffect(() => {
 		Promise.all([
@@ -18,11 +21,6 @@ const SpotifyNowPlaying = (props) => {
 		]).then((results) => {
 			setResult(results[0]);
 			setLoading(false);
-
-			if(result[0].albumImageUrl){
-				fetchImageAndExtractColors(result[0].albumImageUrl);
-			}
-
 		});
 	});
 
