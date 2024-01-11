@@ -61,7 +61,7 @@ export default async function getNowPlayingItem(
     };
 }
 
-const fetchImageAndExtractColors = async () => {
+export default async function fetchImageAndExtractColors(){
     const nowPlaying = await getNowPlaying(client_id, client_secret, refresh_token);
   
     if (!nowPlaying) {
