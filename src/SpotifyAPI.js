@@ -1,5 +1,6 @@
 import queryString from 'query-string';
 import { Buffer } from 'buffer';
+import { extractColors } from 'extract-colors';
 
 const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
 
@@ -60,3 +61,34 @@ export default async function getNowPlayingItem(
     };
 }
 
+const fetchImageAndExtractColors = async () => {
+    const nowPlaying = await getNowPlaying(client_id, client_secret, refresh_token);
+  
+    if (!nowPlaying) {
+      console.error('No currently playing song.');
+      return;
+    }
+  
+    const { albumImageUrl } = nowPlaying;
+    
+    if (!albumImageUrl) {
+      console.error('No album image URL available.');
+      return;
+    }
+  
+    try {
+      const imageResponse = await fetch(albumImageUrl);
+      const imageBlob = await imageResponse.blob();
+      const reader = new FileReader();
+  
+      reader.onloadend = async () => {
+        const base64data = reader.result;
+        const colors = await extractColors(base64data);
+        console.log('Extracted Colors:', colors);
+      };
+  
+      reader.readAsDataURL(imageBlob);
+    } catch (error) {
+      console.error('Error fetching or processing image:', error);
+    }
+  };

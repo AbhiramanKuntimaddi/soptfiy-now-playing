@@ -21,12 +21,6 @@ const SpotifyNowPlaying = (props) => {
 		});
 	});
 
-	if(result.isPlaying){
-		extractColors(result.albumImageUrl)
-		.then(console.log)
-		.catch (console.error)
-	}
-
 	return (
 		<div
 			className="flex
