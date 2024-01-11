@@ -1,6 +1,5 @@
 import queryString from 'query-string';
 import { Buffer } from 'buffer';
-import { extractColors } from 'extract-colors';
 
 const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
 

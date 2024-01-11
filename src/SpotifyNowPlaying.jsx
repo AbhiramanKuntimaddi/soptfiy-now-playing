@@ -81,7 +81,7 @@ const SpotifyNowPlaying = (props) => {
 							</div>
 						</div>
 					) : (
-						"AK is offline!!"
+						"AK is currently offline!!"
 					)}
 				</div>
 			)}
