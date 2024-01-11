@@ -3,7 +3,7 @@ import spotify from "./assets/SpotifyLogo.svg";
 import { useEffect, useState } from "react";
 import getNowPlayingItem from "./SpotifyAPI";
 import { extractColors, extractColorsFromImage } from "extract-colors";
-import { prominent } from "color.js";
+import { average } from "color.js";
 
 const SpotifyNowPlaying = (props) => {
 	const [loading, setLoading] = useState(true);
