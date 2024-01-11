@@ -16,6 +16,9 @@ const SpotifyNowPlaying = (props) => {
 		// const colors = extractColors(result.albumImageUrl, options).then(console.log).catch(console.error);
 		const avgColor = average(result.albumImageUrl, {format: 'hex'});
 		const domColor = prominent(result.albumImageUrl, {amount: 1});	
+
+		// Set the background color dynamically
+		setBackgroundColor(`bg-${avgColor}`);
 	}
 
 	useEffect(() => {
@@ -33,8 +36,8 @@ const SpotifyNowPlaying = (props) => {
 
 	return (
 		<div
-			className="flex
-         min-w-md w-[250px] h-fit text-white items-center justify-center p-2  text-base rounded-lg border-gray-dark bg-gray-dark">
+			className={`flex
+         min-w-md w-[250px] h-fit text-white items-center justify-center p-2  text-base rounded-lg border-gray-dark bg-${backgroundColor}`}>
 			{loading ? (
 				<div
 					className="flex p-2
