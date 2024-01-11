@@ -2,25 +2,10 @@
 import spotify from "./assets/SpotifyLogo.svg";
 import { useEffect, useState } from "react";
 import getNowPlayingItem from "./SpotifyAPI";
-import ColorThief from "colorthief";
 
 const SpotifyNowPlaying = (props) => {
 	const [loading, setLoading] = useState(true);
 	const [result, setResult] = useState({});
-
-	if(result.isPlaying){
-		const img = document.querySelector("img");
-		
-		if(img.complete){
-			const color = ColorThief.getColor(img);
-			console.log(color);
-		} else {
-			image.addEventListener('load', function(){
-				const color = ColorThief.getColor(img);
-				console.log(color);
-			});
-		}
-	}
 
 	useEffect(() => {
 		Promise.all([
