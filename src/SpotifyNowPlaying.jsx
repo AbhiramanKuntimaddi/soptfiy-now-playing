@@ -15,7 +15,7 @@ const SpotifyNowPlaying = (props) => {
 		// 	crossOrigin : 'Anonymous'
 		// }
 		// const colors = extractColors(result.albumImageUrl, options).then(console.log).catch(console.error);
-		prominent(result.albumImageUrl,{amount:1}).then(color =>{
+		average(result.albumImageUrl,{format:'hex'}).then(color =>{
 			console.log(color);
 		})
 	}
