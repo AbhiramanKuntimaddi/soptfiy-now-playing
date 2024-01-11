@@ -7,6 +7,7 @@ import { average, prominent } from "color.js";
 const SpotifyNowPlaying = (props) => {
 	const [loading, setLoading] = useState(true);
 	const [result, setResult] = useState({});
+	const [backgroundColor, setBackgroundColor] = useState('bg-gray-dark'); // Default background color
 
 	if(result.isPlaying){
 		//console.log(result.albumImageUrl);
