@@ -3,6 +3,7 @@ import spotify from "./assets/SpotifyLogo.svg";
 import { useEffect, useState } from "react";
 import getNowPlayingItem from "./SpotifyAPI";
 import { extractColors, extractColorsFromImage } from "extract-colors";
+import { prominent } from "color.js";
 
 const SpotifyNowPlaying = (props) => {
 	const [loading, setLoading] = useState(true);
@@ -10,11 +11,13 @@ const SpotifyNowPlaying = (props) => {
 
 	if(result.isPlaying){
 		console.log(result.albumImageUrl);
-		const options = {
-			crossOrigin : 'Anonymous'
-		}
-		const colors = extractColors(result.albumImageUrl, options).then(console.log).catch(console.error);
-		
+		// const options = {
+		// 	crossOrigin : 'Anonymous'
+		// }
+		// const colors = extractColors(result.albumImageUrl, options).then(console.log).catch(console.error);
+		prominent(result.albumImageUrl,{amount:1}.then(color =>{
+			console.log(color);
+		}))
 	}
 
 	useEffect(() => {
