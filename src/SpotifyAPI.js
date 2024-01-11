@@ -61,7 +61,7 @@ export default async function getNowPlayingItem(
     };
 }
 
-export default async function extractColorsImage(client_id, client_secret, refresh_token) {
+const fetchImageAndExtractColors = async () => {
     const nowPlaying = await getNowPlaying(client_id, client_secret, refresh_token);
   
     if (!nowPlaying) {
@@ -70,7 +70,7 @@ export default async function extractColorsImage(client_id, client_secret, refre
     }
   
     const { albumImageUrl } = nowPlaying;
-  
+    
     if (!albumImageUrl) {
       console.error('No album image URL available.');
       return;
@@ -91,5 +91,4 @@ export default async function extractColorsImage(client_id, client_secret, refre
     } catch (error) {
       console.error('Error fetching or processing image:', error);
     }
-  }
-  
+  };
