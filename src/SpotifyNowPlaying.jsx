@@ -10,7 +10,10 @@ const SpotifyNowPlaying = (props) => {
 
 	if(result.isPlaying){
 		console.log(result.albumImageUrl);
-		const colors = extractColorsFromImage(result.albumImageUrl);
+		const options = {
+			crossOrigin : 'Anonymous'
+		}
+		const colors = extractColors(result.albumImageUrl, options);
 		colors.log(colors);
 	}
 
