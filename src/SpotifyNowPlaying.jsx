@@ -47,27 +47,20 @@ const NowPlaying = ({ result }) => (
 
 const Offline = () => (
 	<div className="text-xl h-full items-center justify-center text-center">
-	  <div className="mb-20 text-3xl bg-gradient-to-r from-indigo-400 to-cyan-400">
+	  <div className="mb-20 text-3xl md:text-5xl md:p-5 text-[#1ab26b]">
 		Oops! Looks like AK is taking a break from Spotify beats.
 	  </div>
-	  <p>Don't worry, the website is still here, vibing without any tunes!</p>
+	  <div className="text-sm md:text-base text-blue-900">
+		Don't worry, the website is still here, vibing without any tunes!
+	  </div>
 	</div>
-);
+  );
+  
   
 
 const SpotifyNowPlaying = (props) => {
 	const [loading, setLoading] = useState(true);
 	const [result, setResult] = useState({});
-
-	if(result.isPlaying){
-		//console.log(result.albumImageUrl);
-		// const options = {
-		// 	crossOrigin : 'Anonymous'
-		// }
-		// const colors = extractColors(result.albumImageUrl, options).then(console.log).catch(console.error);
-		const avgColor = average(result.albumImageUrl, {format: 'hex'});
-		const domColor = prominent(result.albumImageUrl, {amount: 1});	
-	}
 
 	useEffect(() => {
 		Promise.all([

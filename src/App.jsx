@@ -40,6 +40,9 @@ function App(props) {
 					setAvgColor(newAvgColor);
 					console.log(newAvgColor);
 				}
+        else {
+          setAvgColor('#000000');
+        }
 			} catch (error) {
 				console.error(error);
 			}
