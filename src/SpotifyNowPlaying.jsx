@@ -4,6 +4,57 @@ import { useEffect, useState } from "react";
 import getNowPlayingItem from "./SpotifyAPI";
 import { average, prominent } from "color.js";
 
+const LoadingSpinner = () => (
+	<div className="flex p-2 w-fit items-center justify-center text-gray text-base">
+		<img className="w-11 p-1 object-contain h-11 mr-10" src={spotify} alt="" />
+		<p className="tracking-wider px-1 text-base text-left ">Loading...</p>
+	</div>
+);
+
+const NowPlaying = ({ result }) => (
+	<div className="w-[250px]">
+		<div className="w-fit h-full py-2 flex flex-col text-left justify-around">
+			<div className="w-full h-fit relative">
+				<img
+					className="w-fit h-6 p-1 object-contain absolute -rotate-45 z-10"
+					src={spotify}
+					alt=""
+				/>
+				<img
+					className="w-fit h-full rounded-lg"
+					src={result.albumImageUrl}
+					alt="album-image"
+				/>
+			</div>
+
+			<div className="flex flex-col text-left mt-2">
+				<div className="w-fit h-fit">
+					<a
+						className="text-left underline"
+						href={result.songUrl}
+						target="_blank"
+						rel="noreferrer">
+						{result.title}
+					</a>
+				</div>
+				<div className="w-fit h-fit">
+					<p className="text-left">{result.artist}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+);
+
+const Offline = () => (
+	<div className="text-xl h-full items-center justify-center text-center">
+	  <div className="mb-20 text-3xl bg-gradient-to-r from-indigo-400 to-cyan-400">
+		Oops! Looks like AK is taking a break from Spotify beats.
+	  </div>
+	  <p>Don't worry, the website is still here, vibing without any tunes!</p>
+	</div>
+);
+  
+
 const SpotifyNowPlaying = (props) => {
 	const [loading, setLoading] = useState(true);
 	const [result, setResult] = useState({});
@@ -16,7 +67,6 @@ const SpotifyNowPlaying = (props) => {
 		// const colors = extractColors(result.albumImageUrl, options).then(console.log).catch(console.error);
 		const avgColor = average(result.albumImageUrl, {format: 'hex'});
 		const domColor = prominent(result.albumImageUrl, {amount: 1});	
-
 	}
 
 	useEffect(() => {
@@ -33,58 +83,13 @@ const SpotifyNowPlaying = (props) => {
 	});
 
 	return (
-		<div
-			className="flex
-         min-w-md w-[250px] h-fit text-white items-center justify-center p-2  text-2xl rounded-lg border-gray-dark bg-gray-dark">
+		<div className="flex min-w-md h-fit items-center justify-center">
 			{loading ? (
-				<div
-					className="flex p-2
-         w-fit items-center justify-center text-gray  text-base">
-					<img
-						className="w-11 p-1 object-contain h-11 mr-10"
-						src={spotify}
-						alt=""
-					/>
-					<p className="tracking-wider px-1 text-base text-left ">Loading...</p>
-				</div>
+				<LoadingSpinner />
+			) : result.isPlaying ? (
+				<NowPlaying result={result} />
 			) : (
-				<div
-					className="flex p-2
-         w-fit  text-base h-full items-center justify-center">
-					{result.isPlaying ? (
-						<div className=" w-fit  h-full py-2 flex flex-col   text-left justify-around">
-							<div className="w-full h-fit relative">
-								<img
-									className="w-fit h-6 p-1 object-contain absolute -rotate-45 z-10"
-									src={spotify}
-									alt=""
-								/>
-								<img
-									className="w-fit h-full rounded-lg"
-									src={result.albumImageUrl}
-									alt="album-image"
-								/>
-							</div>
-
-							<div className="flex flex-col  text-left mt-2">
-								<div className="w-fit h-fit">
-									<a
-										className="text-left underline "
-										href={result.songUrl}
-										target="_blank"
-										rel="noreferrer">
-										{result.title}
-									</a>
-								</div>
-								<div className="w-fit h-fit">
-									<p className="text-left ">{result.artist}</p>
-								</div>
-							</div>
-						</div>
-					) : (
-						"AK is currently offline!!"
-					)}
-				</div>
+				<Offline />
 			)}
 		</div>
 	);
